@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nisum.corporateSocial.model.WallPost;
-import com.nisum.corporateSocial.model.WallPosting;
 
 @Getter
 @Setter

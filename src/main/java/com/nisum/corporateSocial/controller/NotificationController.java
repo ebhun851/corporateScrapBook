@@ -24,9 +24,9 @@ import com.nisum.corporateSocial.service.NotificationService;
 @Controller
 public class NotificationController {
 
-	@Autowired(required=true)
+	@Autowired
 	private LoggedInUsers loggedInUsers ;  
-	@Autowired(required=true)
+	@Autowired
 	private NotificationService notificationService ;
 	
 	@RequestMapping(value = "/retrieve/notifications", method = RequestMethod.POST, consumes ="application/json")

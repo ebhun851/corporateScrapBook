@@ -2,10 +2,12 @@ package com.nisum.corporateSocial.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.nisum.corporateSocial.model.Forum;
 import com.nisum.corporateSocial.model.ForumMessage;
-import com.nisum.corporateSocial.model.User;
 
+@Repository
 public class ForumDao {
 
 	private Forum forum;

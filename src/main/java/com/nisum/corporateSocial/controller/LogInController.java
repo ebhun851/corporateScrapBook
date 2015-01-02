@@ -1,8 +1,5 @@
 package com.nisum.corporateSocial.controller;
 
-import java.io.IOException;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nisum.corporateSocial.model.LoggedInUsers;
 import com.nisum.corporateSocial.model.User;
-import com.nisum.corporateSocial.model.WallPost;
 import com.nisum.corporateSocial.service.AuthenticationService;
 import com.nisum.corporateSocial.service.NotificationService;
 import com.nisum.corporateSocial.service.UserProfileService;
@@ -31,17 +26,17 @@ import com.nisum.corporateSocial.service.WallPostService;
 @Controller
 @RequestMapping("/userAuthentication")
 public class LogInController {
-	@Autowired(required=true)
+	@Autowired
 	private AuthenticationService authenticationService ;
-	@Autowired(required=true)
+	@Autowired
 	private UserProfileService userProfileService ;
-	@Autowired(required=true)
+	@Autowired
 	private LoggedInUsers loggedInUsers ;  
-	@Autowired(required=true)
+	@Autowired
 	private User user;
-	@Autowired(required=true)
+	@Autowired
 	private NotificationService notificationService ;
-	@Autowired(required=true)
+	@Autowired
 	private WallPostService wallPostService;
 	
 	@RequestMapping(value = "/signIn", method = RequestMethod.POST, consumes ="application/json")

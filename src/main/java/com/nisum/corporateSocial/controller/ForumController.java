@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nisum.corporateSocial.model.Forum;
 import com.nisum.corporateSocial.model.LoggedInUsers;
 import com.nisum.corporateSocial.model.User;
 import com.nisum.corporateSocial.model.WallPost;
@@ -29,14 +28,14 @@ import com.nisum.corporateSocial.service.UserProfileService;
 @Controller
 public class ForumController {
 	
-	@Autowired(required=true)
+	@Autowired
 	private AuthenticationService authenticationService ;
-	@Autowired(required=true)
+	@Autowired
 	private UserProfileService userProfileService ;
-	@Autowired(required=true)
+	@Autowired
 	private LoggedInUsers loggedInUsers ;  
 	
-	@Autowired(required=true)
+	@Autowired
 	private ForumService forumService;
 	
 	

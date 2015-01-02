@@ -38,6 +38,9 @@ List XUNIT = [
 dependencies {
     compile SPRING, SPRING_SOURCES
     compile group: 'org.projectlombok', name: 'lombok', version: '0.11.8'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '2.0.6'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    compile group: 'commons-dbcp', name:'commons-dbcp', version:'1.2.2'
     compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     compile group: 'org.springframework', name: 'spring-jms', version: '3.2.2.RELEASE'
     compile group: 'org.codehaus.jackson', name: 'jackson-core-lgpl', version: '1.9.11'

@@ -16,7 +16,7 @@ import com.nisum.corporateSocial.model.ForumMessage;
 @Setter
 @Service
 public class ForumService {
-	@Autowired(required=true)
+	@Autowired
 	private ForumDao forumDao ;
 	
 	

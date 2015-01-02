@@ -40,7 +40,7 @@ public class UserDao {
 	
 	
 	public User insertUser(User user){
-	     jdbcTemplate.update(INSERT_QUERY,new Object[]{userName}, new UserMapper());
+	     jdbcTemplate.update(INSERT_QUERY,new Object[]{user.getUserName()}, new UserMapper());
 	    return user;
 	}
 	

@@ -25,11 +25,11 @@ import com.nisum.corporateSocial.service.WallPostService;
 @Setter
 @Controller
 public class WallPostController {
-	@Autowired(required=true)
+	@Autowired
 	private LoggedInUsers loggedInUsers ;  
-	@Autowired(required=true)
+	@Autowired
 	private User user;
-	@Autowired(required=true)
+	@Autowired
 	private WallPostService wallPostService;
 	
 	@RequestMapping(value = "/retrieve/wallPost", method = RequestMethod.GET, consumes ="application/json")
