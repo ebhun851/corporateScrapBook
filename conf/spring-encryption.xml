@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+                
+ <!--  Jasypt Configuration to encrypt passwords on spring configuration files. -->
+	<bean id="jasyptConfiguration"
+	    class="com.gap.corporate.logistics.util.CustomJasyptConfig">
+	   <property name="algorithm" value="PBEWithMD5AndDES"/>    
+	</bean>
+	
+	<bean id="propertyPasswordEncryptor"
+	      class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+	       <property name="config" ref="jasyptConfiguration"/>
+	 </bean>
+
+	<bean class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+   		<constructor-arg>
+	      <ref bean="propertyPasswordEncryptor"/>
+	    </constructor-arg>
+	    <property name="locations">
+	      <ref bean="application-properties"/>
+	    </property>
+	    <property name="nullValue">
+	      <value>null</value>
+	    </property>
+	     <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+	</bean>
+</beans>	

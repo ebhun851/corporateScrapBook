@@ -1,0 +1,59 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
+   <diskStore path="java.io.tmpdir"/>
+   <defaultCache eternal="false"
+                 maxElementsInMemory="1000"
+                 timeToIdleSeconds="500"
+                 timeToLiveSeconds="600"
+                 overflowToDisk="false"/>
+   <cache name="markupPercentage"
+          eternal="false"
+          maxElementsInMemory="100"
+          timeToIdleSeconds="500"
+          timeToLiveSeconds="86400"
+          overflowToDisk="false"
+          copyOnRead="true"
+          memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="hierarchyCache"
+           eternal="false"
+           maxElementsInMemory="0"
+           timeToLiveSeconds="86400"
+           overflowToDisk="false"
+           copyOnRead="true"/>
+
+    <cache name="brandCache"
+           eternal="false"
+           maxElementsInMemory="0"
+           timeToLiveSeconds="86400"
+           overflowToDisk="false"
+           copyOnRead="true"/>
+
+    <cache name="marketCache"
+           eternal="false"
+           maxElementsInMemory="0"
+           timeToLiveSeconds="86400"
+           overflowToDisk="false"
+           copyOnRead="true"/>
+
+    <cache name="channelCache"
+           eternal="false"
+           maxElementsInMemory="0"
+           timeToLiveSeconds="86400"
+           overflowToDisk="false"
+           copyOnRead="true"/>
+
+    <cache name="divisionCache"
+           eternal="false"
+           maxElementsInMemory="0"
+           timeToLiveSeconds="86400"
+           overflowToDisk="false"
+           copyOnRead="true"/>
+
+    <cache name="departmentCache"
+           eternal="false"
+           maxElementsInMemory="0"
+           timeToLiveSeconds="86400"
+           overflowToDisk="false"
+           copyOnRead="true"/>
+</ehcache>

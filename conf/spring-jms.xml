@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                                         http://www.springframework.org/schema/util
+                                         http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- GTN Queue config -->
+	<bean id="gtnEsbQueueConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">
+		<property name="transportType">
+			<util:constant static-field="com.ibm.mq.jms.JMSC.MQJMS_TP_CLIENT_MQ_TCPIP" />
+		</property>
+		<property name="queueManager" value="${gtn.esb.queue.manager}" />
+		<property name="hostName" value="${gtn.esb.queue.hostName}" />
+		<property name="channel" value="${gtn.esb.queue.channel}" />
+		<property name="port" value="${gtn.esb.queue.port}" />
+	</bean>
+
+	<bean id="gtnOrderQueue" class="com.ibm.mq.jms.MQQueue" depends-on="gtnEsbQueueConnectionFactory">
+		<property name="baseQueueManagerName" value="" />
+		<property name="baseQueueName" value="${gtn.order.queueName}" />
+		<property name="targetClient" value="1" />
+	</bean>
+	
+	<bean id="gtnShippingOrderQueue" class="com.ibm.mq.jms.MQQueue" depends-on="gtnEsbQueueConnectionFactory">
+		<property name="baseQueueManagerName" value="" />
+		<property name="baseQueueName" value="${gtn.shippingOrder.queueName}" />
+		<property name="targetClient" value="1" />
+	</bean>
+	
+	<bean id="gtnMilestoneQueue" class="com.ibm.mq.jms.MQQueue" depends-on="gtnEsbQueueConnectionFactory">
+		<property name="baseQueueManagerName" value="" />
+		<property name="baseQueueName" value="${gtn.milestone.queueName}" />
+		<property name="targetClient" value="1" />
+	</bean>
+
+	<bean id="gtnJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		 <constructor-arg><ref bean="gtnEsbQueueConnectionFactory"/></constructor-arg>
+	</bean>
+
+	<bean id="gtnOrderQueueSender" class="com.gap.corporate.logistics.jms.sender.QueueSender">
+		 <constructor-arg index="0"><ref bean="gtnJmsTemplate"/></constructor-arg>
+		 <constructor-arg index="1"><ref bean="gtnOrderQueue"/></constructor-arg>
+		 <constructor-arg index="2"><value>GTN Order Queue Sender</value></constructor-arg>
+	</bean>
+	
+	<bean id="gtnShippingOrderQueueSender" class="com.gap.corporate.logistics.jms.sender.QueueSender">
+		 <constructor-arg index="0"><ref bean="gtnJmsTemplate"/></constructor-arg>
+		 <constructor-arg index="1"><ref bean="gtnShippingOrderQueue"/></constructor-arg>
+		 <constructor-arg index="2"><value>GTN Shipping Order Queue Sender</value></constructor-arg>
+	</bean>
+	
+	<bean id="gtnMilestoneQueueSender" class="com.gap.corporate.logistics.jms.sender.QueueSender">
+		 <constructor-arg index="0"><ref bean="gtnJmsTemplate"/></constructor-arg>
+		 <constructor-arg index="1"><ref bean="gtnMilestoneQueue"/></constructor-arg>
+		 <constructor-arg index="2"><value>GTN Milestone Queue Sender</value></constructor-arg>
+	</bean>
+	<!-- GTN Queue config ends-->
+
+    <!-- WMS Queue config -->
+    <bean id="wmsQueueConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">
+        <property name="transportType">
+            <util:constant static-field="com.ibm.mq.jms.JMSC.MQJMS_TP_CLIENT_MQ_TCPIP"/>
+        </property>
+        <property name="queueManager" value="${wms.esb.queue.manager}"/>
+        <property name="hostName" value="${wms.esb.queue.hostname}"/>
+        <property name="channel" value="${wms.esb.queue.channel}"/>
+        <property name="port" value="${wms.esb.queue.port}"/>
+        <property name="syncpointAllGets" value="true"/>
+    </bean>
+
+    <!-- WMS Queue Listeners -->
+    <bean id="drasnListenerContainer" class="com.gap.corporate.logistics.jms.listener.MessageListenerContainer">
+        <property name="connectionFactory" ref="wmsQueueConnectionFactory"/>
+        <property name="destinationName" value="${wms.esb.queue.advanceShipNotice.name}"/>
+        <property name="queueFriendlyName" value="DRASNListenerQueue"/>
+        <property name="messageListener" ref="drasnListener"/>
+        <!--        <property name="transactionManager" ref="jtaTransactionManager" /> -->
+        <!--        <property name="sessionTransacted" value="true" /> -->
+        <property name="concurrentConsumers" value="1"/>
+        <property name="receiveTimeout" value="3000"/>
+        <property name="autoStartup" value="${wms.esb.queue.advanceShipNotice.autostart}" />
+    </bean>
+    
+    <bean id="obasnListenerContainer" class="com.gap.corporate.logistics.jms.listener.MessageListenerContainer">
+        <property name="connectionFactory" ref="wmsQueueConnectionFactory"/>
+        <property name="destinationName" value="${wms.esb.queue.wholesaleTurnover.name}"/>
+        <property name="queueFriendlyName" value="OBASNListenerQueue"/>
+        <property name="messageListener" ref="obasnListener"/>
+        <!--        <property name="transactionManager" ref="jtaTransactionManager" /> -->
+        <!--        <property name="sessionTransacted" value="true" /> -->
+        <property name="concurrentConsumers" value="1"/>
+        <property name="receiveTimeout" value="3000"/>
+        <property name="autoStartup" value="${wms.esb.queue.wholesaleTurnover.autostart}" /> 
+    </bean>
+    <!-- WMS Queue config ends -->
+    
+	<!-- Trade Flow Queue configuration starts -->
+	 <bean id="tradeFlowProductQueueConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">
+        <property name="transportType">
+            <util:constant static-field="com.ibm.mq.jms.JMSC.MQJMS_TP_CLIENT_MQ_TCPIP"/>
+        </property>
+        <property name="queueManager" value="${tradeflow.esb.queue.manager}"/>
+        <property name="hostName" value="${tradeflow.esb.queue.hostname}"/>
+        <property name="channel" value="${tradeflow.esb.queue.channel}"/>
+        <property name="port" value="${tradeflow.esb.queue.port}"/>
+        <property name="syncpointAllGets" value="true"/>
+    </bean>
+	<bean id="tradeFlowProductListenerContainer" class="com.gap.corporate.logistics.jms.listener.FeatureToggledMessageListenerContainer">
+        <property name="connectionFactory" ref="tradeFlowProductQueueConnectionFactory"/>
+        <property name="destinationName" value="${tradeflow.esb.queue.product.name}"/>
+        <property name="queueFriendlyName" value="tradeFlowProductListenerQueue"/>
+        <property name="messageListener" ref="tradeFlowProductListener"/>
+        <property name="concurrentConsumers" value="1"/>
+        <property name="receiveTimeout" value="3000"/>
+        <property name="autoStartup" value="${tradeflow.esb.queue.product.autostart}" />
+        <property name="feature" ref="tradeFlowJmsQueuePingFeature" />
+    </bean>
+	<!-- Trade Flow Queue configuration ends -->
+</beans>
+
+
