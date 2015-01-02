@@ -39,12 +39,13 @@ public class ForumController {
 	@Autowired(required=true)
 	private ForumService forumService;
 	
+	
 	@RequestMapping(value = "/forum/createForum", method = RequestMethod.GET, consumes ="application/json")
 	   public ResponseEntity<List<WallPost>> signInAuthentication(@RequestBody(required = true)
          User user) throws IOException {
 			if(user!=null & loggedInUsers.userAlreadyLoggedIn(user.getUserId())){
-				List<WallPost> wallPosts = wallPostService.getWallPosts(user.getUserName());
-				return new ResponseEntity<List<WallPost>>(wallPosts, HttpStatus.OK);
+//				List<WallPost> wallPosts = wallPostService.getWallPosts(user.getUserName());
+//				return new ResponseEntity<List<WallPost>>(wallPosts, HttpStatus.OK);
 			}
 			return new ResponseEntity<List<WallPost>>(new ArrayList<WallPost>(), HttpStatus.UNAUTHORIZED);
 	}
@@ -52,10 +53,10 @@ public class ForumController {
 	@RequestMapping(value = "/forum/{forumId}/", method = RequestMethod.GET, consumes ="application/json")
 	   public ResponseEntity<List<WallPost>> getForum(
 			   @RequestParam(required=true)String forumId) throws IOException {
-			if(user!=null & loggedInUsers.userAlreadyLoggedIn(user.getUserId())){
-				List<WallPost> wallPosts = wallPostService.getWallPosts(user.getUserName());
-				return new ResponseEntity<List<WallPost>>(wallPosts, HttpStatus.OK);
-			}
+			/*if(user!=null & loggedInUsers.userAlreadyLoggedIn(user.getUserId())){
+//				List<WallPost> wallPosts = wallPostService.getWallPosts(user.getUserName());
+//				return new ResponseEntity<List<WallPost>>(wallPosts, HttpStatus.OK);
+			}*/
 			return new ResponseEntity<List<WallPost>>(new ArrayList<WallPost>(), HttpStatus.UNAUTHORIZED);
 	}
 	
@@ -63,8 +64,8 @@ public class ForumController {
 	   public ResponseEntity<List<WallPost>> getForums(@RequestBody(required = true)
        User user) throws IOException {
 			if(user!=null & loggedInUsers.userAlreadyLoggedIn(user.getUserId())){
-				List<Forum> wallPosts = forumService.getForumsForUser(user.getUserName());
-				return new ResponseEntity<List<WallPost>>(wallPosts, HttpStatus.OK);
+//				List<Forum> wallPosts = forumService.getForumsForUser(user.getUserName());
+//				return new ResponseEntity<List<WallPost>>(wallPosts, HttpStatus.OK);
 			}
 			return new ResponseEntity<List<WallPost>>(new ArrayList<WallPost>(), HttpStatus.UNAUTHORIZED);
 	}
