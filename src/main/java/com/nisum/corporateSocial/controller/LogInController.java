@@ -51,19 +51,20 @@ public class LogInController {
 			return new ResponseEntity<String>("Authentication failed", HttpStatus.UNAUTHORIZED);
 	}
 	
+	//http://localhost:8080/scrap/resources/userAuthentication/signUp?userName=nisum&password=nisum
 	@RequestMapping(value = "/signUp", method = RequestMethod.PUT)
 	public ResponseEntity<String> signUp(
 			   @RequestParam(required=true)String userName,
 			   @RequestParam(required=true)String password) {
 		user.setUserName(userName);
 		user.setPassword(password);
-		if(userAlreadyRegistered(user)){
+		/*if(userAlreadyRegistered(user)){
 			return new ResponseEntity<String>("User Already Registered", HttpStatus.UNAUTHORIZED);
-		}else{
+		}else{*/
 			if(userProfileService.saveUser(user)==true){
 				return new ResponseEntity<String>("User Registered With System", HttpStatus.OK);
 			}
-		}
+//		}
 		return new ResponseEntity<String>("User Registered failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

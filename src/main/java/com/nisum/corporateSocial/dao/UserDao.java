@@ -26,7 +26,10 @@ public class UserDao {
 	 private JdbcTemplate jdbcTemplate;
 	
 	 private static final String  INSERT_QUERY = "insert into users (user_name, first_name,middle_name,last_name,email,password,connection_site) values (?, ?,?,?,?,?,?)";
-	 private static final String SELECT_QUERY = "select * from users where username = ?";
+	 private static final String SELECT_QUERY = "select * from users where user_name = ?";
+	 
+	 private static final  String SQL = "insert into users (user_name, password) values (?, ?)";
+     
 	 
 	public User getUserByUserName(String userName){
 	    User user = jdbcTemplate.queryForObject(SELECT_QUERY,new Object[]{userName}, new UserMapper());
@@ -40,7 +43,8 @@ public class UserDao {
 	
 	
 	public User insertUser(User user){
-	     jdbcTemplate.update(INSERT_QUERY,new Object[]{user.getUserName()}, new UserMapper());
+		jdbcTemplate.update( SQL, user.getUserName(), user.getPassword());
+//	     jdbcTemplate.update(INSERT_QUERY,new Object[]{user.getUserName()}, new UserMapper());
 	    return user;
 	}
 	
