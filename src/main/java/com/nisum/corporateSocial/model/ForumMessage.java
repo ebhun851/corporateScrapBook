@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ForumMessage {
 	
-	private String userId;
+	private User forumMessageCreator;
 	private String messageId;
-	private Forum forumId;
+	private String forumId;
 	private String messageContent;
 	private DateTime timeStamp;
 }

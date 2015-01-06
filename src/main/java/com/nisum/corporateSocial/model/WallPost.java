@@ -15,6 +15,7 @@ public class WallPost {
 	private String postContent;
 	private DateTime timeStamp;
 	private User wallOwner;
-	private User PostUser;
+	private User wallPostUser;
+	private Type type;
 	
 }

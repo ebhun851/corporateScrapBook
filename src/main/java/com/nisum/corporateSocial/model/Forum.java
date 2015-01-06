@@ -1,5 +1,7 @@
 package com.nisum.corporateSocial.model;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class Forum {
 	private String forumId;
-	private User forumOwner;
+	private String forumOwnerId;
 	private String forumTitle;
 	private DateTime timeStamp;
+	private String categoryId;
+	private List<ForumMessage> forumMessages;
 }

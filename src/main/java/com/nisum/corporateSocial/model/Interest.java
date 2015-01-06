@@ -12,4 +12,5 @@ public class Interest {
 	private String interestId;
 	private String interestType;
 	private String interstName;
+	private String userId;
 }

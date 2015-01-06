@@ -17,5 +17,4 @@ public class User {
 	String lastName;
 	String email;
 	String connectionSite;
-	
 }

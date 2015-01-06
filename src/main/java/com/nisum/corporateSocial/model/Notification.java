@@ -1,9 +1,9 @@
 package com.nisum.corporateSocial.model;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.stereotype.Component;
 
 
 @Getter
@@ -15,4 +15,7 @@ public class Notification {
 	private String forumMessageId;
 	private boolean readStatus;
 	private String notificationContent;
+	private String userId;
+	private Type type;
+	private String timeStamp;
 }
