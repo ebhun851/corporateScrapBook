@@ -17,7 +17,16 @@ public class UserProfileService {
 	private UserDao userDao;
 	
 	public boolean saveUser(User user){
-		return (userDao.insertUser(user))!=null?true:false;
+		return (userDao.insertUser(user))!=0?true:false;
 		
 	}
+	
+	public User getUserByUserName(String userName){
+		return userDao.getUserByUserName(userName);
+	}
+	
+	public User getUserByUserId(String userId){
+		return userDao.getUserByUserId(userId);
+	}
+	
 }
