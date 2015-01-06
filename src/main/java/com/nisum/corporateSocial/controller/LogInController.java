@@ -1,5 +1,8 @@
 package com.nisum.corporateSocial.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nisum.corporateSocial.model.LoggedInUsers;
 import com.nisum.corporateSocial.model.User;
+import com.nisum.corporateSocial.model.WallPost;
 import com.nisum.corporateSocial.service.AuthenticationService;
 import com.nisum.corporateSocial.service.NotificationService;
 import com.nisum.corporateSocial.service.UserProfileService;
@@ -26,17 +31,17 @@ import com.nisum.corporateSocial.service.WallPostService;
 @Controller
 @RequestMapping("/userAuthentication")
 public class LogInController {
-	@Autowired
+	@Autowired(required=true)
 	private AuthenticationService authenticationService ;
-	@Autowired
+	@Autowired(required=true)
 	private UserProfileService userProfileService ;
-	@Autowired
+	@Autowired(required=true)
 	private LoggedInUsers loggedInUsers ;  
-	@Autowired
+	@Autowired(required=true)
 	private User user;
-	@Autowired
+	@Autowired(required=true)
 	private NotificationService notificationService ;
-	@Autowired
+	@Autowired(required=true)
 	private WallPostService wallPostService;
 	
 	@RequestMapping(value = "/signIn", method = RequestMethod.POST, consumes ="application/json")
@@ -51,20 +56,19 @@ public class LogInController {
 			return new ResponseEntity<String>("Authentication failed", HttpStatus.UNAUTHORIZED);
 	}
 	
-	//http://localhost:8080/scrap/resources/userAuthentication/signUp?userName=nisum&password=nisum
-	@RequestMapping(value = "/signUp", method = RequestMethod.PUT)
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ResponseEntity<String> signUp(
 			   @RequestParam(required=true)String userName,
 			   @RequestParam(required=true)String password) {
 		user.setUserName(userName);
 		user.setPassword(password);
-		/*if(userAlreadyRegistered(user)){
+		if(userAlreadyRegistered(user)){
 			return new ResponseEntity<String>("User Already Registered", HttpStatus.UNAUTHORIZED);
-		}else{*/
+		}else{
 			if(userProfileService.saveUser(user)==true){
 				return new ResponseEntity<String>("User Registered With System", HttpStatus.OK);
 			}
-//		}
+		}
 		return new ResponseEntity<String>("User Registered failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
